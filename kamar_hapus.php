@@ -1,0 +1,28 @@
+<?php 
+include '../koneksi.php';
+$id = $_GET['id'];
+$data = mysqli_query($koneksi, "select * from kamar where kamar_id='$id'");
+$d = mysqli_fetch_assoc($data);
+$foto1 = $d['kamar_foto1'];
+$foto2 = $d['kamar_foto2'];
+$foto3 = $d['kamar_foto3'];
+
+unlink("../gambar/kamar/$foto1");
+unlink("../gambar/kamar/$foto2");
+unlink("../gambar/kamar/$foto3");
+
+mysqli_query($koneksi, "delete from kamar where kamar_id='$id'");
+
+
+
+
+// $data = mysqli_query($koneksi, "select * from transaksi where transaksi_kamar='$id'");
+// while($d=mysqli_fetch_array($data)){
+// 	$id_invoice = $d['transaksi_invoice'];
+
+// 	mysqli_query($koneksi, "delete from invoice where invoice_id='$id'");
+// }
+
+// mysqli_query($koneksi, "delete from transaksi where transaksi_kamar='$id'");
+
+header("location:kamar.php");
